@@ -99,18 +99,17 @@ find /backup -name "*.dump" -mtime +7 -delete
 
 Включение бинарных логов в my.cnf:
 
-ini
 [mysqld]
 log-bin=mysql-bin
 server-id=1
 
 Создание полного бэкапа:
 
-mysqldump -u root -p --flush-logs --master-data=2 --single-transaction --databases mydb > full_backup.sql
+- mysqldump -u root -p --flush-logs --master-data=2 --single-transaction --databases mydb > full_backup.sql
 
 Создание инкрементного бэкапа:
 
-mysqlbinlog mysql-bin.00000* > incremental_backup.sql
+- mysqlbinlog mysql-bin.00000* > incremental_backup.sql
 
 3.1. Преимущества реплики перед обычным бэкапом*
 
