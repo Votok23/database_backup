@@ -61,24 +61,22 @@
 2.1. Команды резервирования и восстановления
 
 Резервирование:
-
 pg_dump -U username -F c -f /backup/db.dump mydb
 
-Восстановление:
 
+Восстановление:
 pg_restore -U username -d mydb /backup/db.dump
 
 2.1. Автоматизация*
-
 Да, возможно:
 
 Cron-задание:
-
 0 2 * * * pg_dump -U postgres -F c -f /backup/db_$(date +\%d).dump mydb
-Скрипт с ротацией:
 
+Скрипт с ротацией:
 pg_dump -U postgres -F c -f /backup/db_$(date +%Y%m%d).dump mydb
 find /backup -name "*.dump" -mtime +7 -delete
+
 Специализированные утилиты: pgBackRest, Barman, WAL-G
 
 
