@@ -61,19 +61,23 @@
 2.1. Команды резервирования и восстановления
 
 Резервирование:
+
 pg_dump -U username -F c -f /backup/db.dump mydb
 
 
 Восстановление:
+
 pg_restore -U username -d mydb /backup/db.dump
 
 2.1. Автоматизация*
 Да, возможно:
 
 Cron-задание:
+
 0 2 * * * pg_dump -U postgres -F c -f /backup/db_$(date +\%d).dump mydb
 
 Скрипт с ротацией:
+
 pg_dump -U postgres -F c -f /backup/db_$(date +%Y%m%d).dump mydb
 find /backup -name "*.dump" -mtime +7 -delete
 
@@ -94,13 +98,16 @@ find /backup -name "*.dump" -mtime +7 -delete
 Для инкрементного бэкапа требуется включить бинарное логирование:
 
 Включение бинарных логов в my.cnf:
+
 ini
 [mysqld]
 log-bin=mysql-bin
 server-id=1
 
 Создание полного бэкапа:
+
 mysqldump -u root -p --flush-logs --master-data=2 --single-transaction --databases mydb > full_backup.sql
+
 Создание инкрементного бэкапа:
 
 mysqlbinlog mysql-bin.00000* > incremental_backup.sql
